@@ -60,6 +60,7 @@ function App() {
          </CssIconButton>
       </div>
      {showSingle ? <RandomQuote quote={quote} loadAllQuotes={loadAllQuotes}/> : <AllQuotes quotes={quotes}/> }
+     <div className={styles.footer}>Poornima Natikar @devchallenges.io</div>
     </div>
   );
 }

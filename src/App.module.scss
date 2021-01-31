@@ -1,4 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
 .header {
     display: flex;
     justify-content: flex-end;
+}
+* {
+    font-family: "Raleway", sans-serif;
+}
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
 }

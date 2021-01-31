@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from "@material-ui/core/styles";
 const CssButton = withStyles({
     root: {
+      "&:hover":{
       background: '#828282',
       boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
       color: 'white',
@@ -15,13 +16,13 @@ const CssButton = withStyles({
         right:'5%',
     
       }
+    }
     },
     label:{
       textTransform:'capitalize',
       display:'flex',
       flexDirection:'column',
       alignItems:'flex-start',
-    
     }
   })(Button);
 
