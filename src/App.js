@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
-
+import styles from './App.module.scss';
+import RandomQuote from './RandomQuote/RandomQuote';
+import AllQuotes from './AllQuotes/AllQuotes';
+import { useState, useEffect } from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import { withStyles } from "@material-ui/core/styles";
+const CssIconButton = withStyles({
+  root: {
+      borderRadius:'0'
+  }
+})(IconButton)
 function App() {
+  const [showSingle,setShowSingle] = useState(true);
+  const [quote,setQuote] = useState({});
+  const [quotes,setQuotes] = useState([]);
+  
+  useEffect(() => {
+   loadQuote();
+  },[]);
+
+  const loadQuote =() => {
+    fetch(`https://quote-garden.herokuapp.com/api/v3/quotes/random`, {
+      "method": "GET"
+    })
+      .then(response => response.json())
+      .then(response => {
+        setQuote(response.data[0]);
+        
+        setShowSingle(true);
+        
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  }
+  const handleRefresh =() =>{
+    loadQuote();
+  }
+
+  const loadAllQuotes = (quoteAuthor) =>{
+    fetch(`https://quote-garden.herokuapp.com/api/v3/quotes?author=${quoteAuthor}`, {
+      "method": "GET"
+    })
+      .then(response => response.json())
+      .then(response => {
+        setQuotes(response.data);
+        setShowSingle(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className={styles.header}>
+         <CssIconButton onClick={() => handleRefresh()}>
+            random<AutorenewIcon />
+         </CssIconButton>
+      </div>
+     {showSingle ? <RandomQuote quote={quote} loadAllQuotes={loadAllQuotes}/> : <AllQuotes quotes={quotes}/> }
     </div>
   );
 }
-
 export default App;

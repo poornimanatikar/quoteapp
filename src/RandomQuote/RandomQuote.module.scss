@@ -1,0 +1,15 @@
+.randomContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .quotediv {
+        border-left: 3px solid #f7df94;
+        padding: 15px;
+        margin-bottom: 5%;
+    }
+}
